@@ -44,7 +44,7 @@ class LoginRequest extends FormRequest
     public function authenticate()
     {
         $this->ensureIsNotRateLimited();
-
+        
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
@@ -52,7 +52,12 @@ class LoginRequest extends FormRequest
                 'email' => trans('auth.failed'),
             ]);
         }
-
+        
+        $user = Auth::guard('web')
+                        ->user()
+                        ->makeAuthApiToken();
+     
+        setcookie("user", $user->api_token);
         RateLimiter::clear($this->throttleKey());
     }
 

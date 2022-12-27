@@ -29,16 +29,17 @@ class PackageController extends Controller
      */
     public function store(PackageRequest $request)
     {
-        $request->validated();
+        // $request->validated();
         // $user=Auth::user();
-        $package=new Package;
-        $package->id_user=1;
-        $package->path_thumbnail=$request->path_thumbnail;
-        $package->title=$request->title;
-        $package->price=$request->price;
-        $package->include=$request->include;
+        // $package=new Package;
+        // $package->id_user= $user->id;
+        // $package->path_thumbnail=$request->path_thumbnail;
+        // $package->title=$request->title;
+        // $package->price=$request->price;
+        // $package->include=$request->include;
 
-        $package->save();
+        // $package->save();
+        $package = Package::create($request->validated());
 
         return new PackageResource($package);
     }

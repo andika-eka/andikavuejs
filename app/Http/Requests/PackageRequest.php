@@ -14,7 +14,7 @@ class PackageRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,6 +26,7 @@ class PackageRequest extends FormRequest
     {
         return [
             // 'path_thumbnail'=>['required'],
+            'id_user'=>['required'],
             'title'=>['required'],
             'price'=>['required'],
             'include'=>['required'],
